@@ -1,0 +1,48 @@
+{
+  "controller": [
+    {
+      "id": 1,
+      "window": [
+        {
+          "id": 1,
+          "status": true
+        },
+        {
+          "id": 2,
+          "status": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "window": [
+        {
+          "id": 1,
+          "status": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "window": [
+        {
+          "id": 1,
+          "status": true
+        }
+      ]
+    },
+    {
+      "window": [
+        {
+          "id": 1,
+          "status": true
+        },
+        {
+          "id": 2,
+          "status": true
+        }
+      ],
+      "id": 4
+    }
+  ]
+}
