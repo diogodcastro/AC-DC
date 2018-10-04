@@ -1,48 +1,74 @@
 {
   "controller": [
     {
-      "id": 1,
       "window": [
         {
           "id": 1,
+          "name": "window 1",
           "status": true
         },
         {
           "id": 2,
-          "status": true
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "window": [
-        {
-          "id": 1,
-          "status": true
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "window": [
-        {
-          "id": 1,
-          "status": true
-        }
-      ]
-    },
-    {
-      "window": [
-        {
-          "id": 1,
-          "status": true
-        },
-        {
-          "id": 2,
+          "name": "window 2",
           "status": true
         }
       ],
-      "id": 4
+      "id": 1,
+      "name": "Controller 1"
+    },
+    {
+      "window": [
+        {
+          "id": 1,
+          "name": "window 1",
+          "status": true
+        }
+      ],
+      "id": 2,
+      "name": "Controller 2"
+    },
+    {
+      "window": [
+        {
+          "id": 1,
+          "name": "window 1",
+          "status": true
+        },
+        {
+          "id": 2,
+          "name": "window 2",
+          "status": true
+        }
+      ],
+      "id": 3,
+      "name": "Controller 3"
+    },
+    {
+      "window": [
+        {
+          "id": 1,
+          "name": "window 1",
+          "status": true
+        }
+      ],
+      "id": 4,
+      "name": "Controller 4"
+    },
+    {
+      "window": [
+        {
+          "id": 1,
+          "name": "window 1",
+          "status": true
+        },
+        {
+          "id": 2,
+          "name": "window 2",
+          "status": true
+        }
+      ],
+      "id": 5,
+      "name": "Controller 5"
     }
   ]
 }

@@ -1,3 +1,4 @@
+import { DbService } from './../shared/services/db.service';
 import { Component, OnInit } from '@angular/core';
 import { Controller } from '../shared/models/controller.model';
 
@@ -8,11 +9,23 @@ import { Controller } from '../shared/models/controller.model';
 })
 export class DashboardComponent implements OnInit {
 
-  controllers: [Controller];
+  public controllers: Controller[];
 
-  constructor() { }
+  constructor(private dbService: DbService) { }
 
   ngOnInit() {
+    this.getControllers();
+  }
+
+  public getControllers(): void {
+    this.dbService.getAllControllers().subscribe((response: Controller[]) => {
+      console.log(response);
+      this.controllers = response;
+    });
+  }
+
+  public changeStatus(): void {
+    console.log('here: go');
   }
 
 }

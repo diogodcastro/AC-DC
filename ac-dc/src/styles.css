@@ -11,11 +11,12 @@
 }
 
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.col-xs-6 {
+.col-lg-12 {
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -33,4 +34,9 @@
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+.card {
+
+ margin-bottom: 10px;
 }
