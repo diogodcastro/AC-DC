@@ -71,8 +71,7 @@ export class DashboardComponent implements OnInit {
 
     this.newWindow = new Window(null,
       this.newFormWindow.get('name').value,
-      this.newWindowCheck
-    );
+      this.newWindowCheck);
 
     console.log('added this window', this.newWindow);
   }
