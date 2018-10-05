@@ -34,17 +34,36 @@
 
             <div class="card">
               <div class="card-header">
-                <ui-switch [(ngModel)]="addWindow"></ui-switch>
-                Add Window
+                <button class="btn btn-info float-right" (click)="addWindowController()">
+                  Add new Window
+                </button>
               </div>
               <div class="card-body" *ngIf="addWindow">
+                  <form [formGroup]="newFormWindow">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <td>Name</td>
+                      <td>Status</td>
+                      <td>Save</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                      <tr>
+                        <td>
+                          <input type="text" formControlName="name">
+                        </td>
+                        <td>
+                          <ui-switch [checked]="newWindowCheck"></ui-switch>
+                        <td><button class="btn btn-info float-right" (click)="windowAdded()">Save</button></td>
+                      </tr>
+                  </tbody>
+                </table>
+
+              </form>
               </div>
-
-              <a class="btn btn-secondary" (click)="openWindow()">window open</a>
-              <a class="btn btn-secondary" (click)="closeWindow()">window close</a>
             </div>
-
-
           </div>
         </div>
       </div>

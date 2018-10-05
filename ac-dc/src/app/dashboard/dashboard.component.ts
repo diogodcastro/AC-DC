@@ -19,9 +19,11 @@ export class DashboardComponent implements OnInit {
 
   public newWindow: Window;
 
-  newEquipment = new FormGroup({
+  public newWindowCheck: boolean = false;
+
+  newFormWindow = new FormGroup({
     name: new FormControl(''),
-    status: new FormControl(false)
+    status: new FormControl(this.newWindowCheck)
   });
 
   constructor(private dbService: DbService, private windowService: WindowService) {}
@@ -59,5 +61,19 @@ export class DashboardComponent implements OnInit {
   }
   public closeWindow(): void {
     this.windowService.closeWindow().subscribe((response: any) => response);
+  }
+
+  public addWindowController(): void {
+    this.addWindow = !this.addWindow;
+  }
+
+  public windowAdded(): void {
+
+    this.newWindow = new Window(null,
+      this.newFormWindow.get('name').value,
+      this.newWindowCheck
+    );
+
+    console.log('added this window', this.newWindow);
   }
 }
