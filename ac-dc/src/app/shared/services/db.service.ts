@@ -32,7 +32,7 @@ export class DbService {
       .pipe(map((response: Controller) => response));
   }
 
-  public updateParking(controller: Controller): Observable<any> {
+  public updateController(controller: Controller): Observable<any> {
     let headers = new HttpHeaders();
     headers.append('Content-type', 'application/json');
     return this.httpService

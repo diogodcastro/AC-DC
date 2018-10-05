@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { WindowService } from '../shared/services/window.service';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   declarations: [DashboardComponent],
-  providers: [DbService],
+  providers: [DbService, WindowService],
   exports: []
 })
 export class DashboardModule {}

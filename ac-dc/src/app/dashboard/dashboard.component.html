@@ -23,13 +23,27 @@
                   <td>{{window.id}}</td>
                   <td>{{window.name}}</td>
                   <td>{{window.status}}</td>
-                  <td><ui-switch [(ngModel)]="window.status" (click)="changeStatus()"></ui-switch></td>
+                  <td>
+                    <ui-switch [checked]="window.status" (change)="changeWindowStatus = !changeWindowStatus"
+                      (click)="changeStatus(window, controller['window'])"></ui-switch>
+                  </td>
                 </tr>
               </tbody>
 
             </table>
 
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card">
+              <div class="card-header">
+                <ui-switch [(ngModel)]="addWindow"></ui-switch>
+                Add Window
+              </div>
+              <div class="card-body" *ngIf="addWindow">
+              </div>
+
+              <a class="btn btn-secondary" (click)="openWindow()">window open</a>
+              <a class="btn btn-secondary" (click)="closeWindow()">window close</a>
+            </div>
+
 
           </div>
         </div>

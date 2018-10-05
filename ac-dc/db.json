@@ -5,16 +5,22 @@
         {
           "id": 1,
           "name": "window 1",
-          "status": true
+          "status": false
         },
         {
           "id": 2,
           "name": "window 2",
           "status": true
+        },
+        {
+          "id": 3,
+          "name": "window 3",
+          "status": true
         }
       ],
       "id": 1,
-      "name": "Controller 1"
+      "name": "Controller 1",
+      "ip": ""
     },
     {
       "window": [
@@ -25,7 +31,8 @@
         }
       ],
       "id": 2,
-      "name": "Controller 2"
+      "name": "Controller 2",
+      "ip": ""
     },
     {
       "window": [
@@ -41,7 +48,8 @@
         }
       ],
       "id": 3,
-      "name": "Controller 3"
+      "name": "Controller 3",
+      "ip": ""
     },
     {
       "window": [
@@ -52,23 +60,8 @@
         }
       ],
       "id": 4,
-      "name": "Controller 4"
-    },
-    {
-      "window": [
-        {
-          "id": 1,
-          "name": "window 1",
-          "status": true
-        },
-        {
-          "id": 2,
-          "name": "window 2",
-          "status": true
-        }
-      ],
-      "id": 5,
-      "name": "Controller 5"
+      "name": "Controller 4",
+      "ip": ""
     }
   ]
 }
