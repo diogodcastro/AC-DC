@@ -1,8 +1,40 @@
 <div class="container">
   <div class="row">
 
+
     <div class="col-lg-12">
 
+
+      <div class="card" *ngIf="addControllerBoolean">
+        <div class="card-header">
+          <button class="btn btn-info float-right" (click)="addController()">
+            Add new Controller
+          </button>
+        </div>
+        <div class="card-body" *ngIf="addFormBoolean">
+          <form [formGroup]="newControllerForm">
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>IP</td>
+                  <td>Save</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" formControlName="name"></td>
+                  <td><input type="text" formControlName="ip"></td>
+                  <td><button class="btn btn-info" (click)="addNewController()">Save</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
       <div *ngFor="let controller of controllers">
         <div class="card">
           <div class="card-header">
@@ -18,56 +50,52 @@
                   <th>Change</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let window of controller['window']">
+              <tbody *ngFor="let windows of controller['windows']">
                 <tr>
-                  <td>{{window.id}}</td>
-                  <td>{{window.name}}</td>
-                  <td>{{window.status}}</td>
+                  <td>{{windows.id}}</td>
+                  <td>{{windows.name}}</td>
+                  <td>{{windows.status}}</td>
                   <td>
-                    <ui-switch [checked]="window.status" (change)="changeWindowStatus = !changeWindowStatus"
-                      (click)="changeStatus(window, controller['window'])"></ui-switch>
+                    <ui-switch [checked]="windows.status" (change)="changeWindowsStatus = !changeWindowsStatus"
+                      (click)="changeStatus(windows, controller)"></ui-switch>
                   </td>
                 </tr>
               </tbody>
-
             </table>
 
-            <div class="card">
+            <div class="card" *ngIf="controller.windows?.length < 5">
               <div class="card-header">
-                <button class="btn btn-info float-right" (click)="addWindowController()">
-                  Add new Window
-                </button>
+                <button class="btn btn-info float-right" (click)="addWindowsController()">Add new
+                  Window</button>
               </div>
-              <div class="card-body" *ngIf="addWindow">
-                  <form [formGroup]="newFormWindow">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <td>Name</td>
-                      <td>Status</td>
-                      <td>Save</td>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <div class="card-body" *ngIf="addWindowsBoolean">
+                <form [formGroup]="newFormWindows">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <td>Name</td>
+                        <td>Status</td>
+                        <td>Save</td>
+                      </tr>
+                    </thead>
+                    <tbody>
 
                       <tr>
                         <td>
                           <input type="text" formControlName="name">
                         </td>
                         <td>
-                          <ui-switch [checked]="newWindowCheck"></ui-switch>
-                        <td><button class="btn btn-info float-right" (click)="windowAdded()">Save</button></td>
+                          <ui-switch [checked]="newWindowsCheck"></ui-switch>
+                        <td><button class="btn btn-info" (click)="addNewWindows(controller)">Save</button></td>
                       </tr>
-                  </tbody>
-                </table>
-
-              </form>
+                    </tbody>
+                  </table>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
   </div>

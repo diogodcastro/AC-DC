@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as Constants from './../app-constants';
+import * as Constants from '../app-constants';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class WindowService {
-  private endpoint: string = 'window';
+export class WindowsService {
+  private endpoint: String = 'windows';
 
   constructor(private http: HttpClient) {}
 
@@ -20,21 +20,14 @@ export class WindowService {
     );
   }
 
-  public openWindow(): Observable<any> {
+  public openWindows(): Observable<any> {
     console.log(`${Constants.APP_URI}/${this.endpoint}/open`);
     return this.http.get<any>(`${Constants.APP_URI}/${this.endpoint}/open`);
   }
 
-  public closeWindow(): Observable<any> {
+  public closeWindows(): Observable<any> {
     console.log(`${Constants.APP_URI}/${this.endpoint}/close`);
     return this.http.get<any>(`${Constants.APP_URI}/${this.endpoint}/close`);
   }
 
-  public activateWindow() {
-    let headers = new HttpHeaders();
-    headers.append('Content-type', 'application/json');
-    return this.http
-      .post(`${Constants.APP_URI}/${this.endpoint}/close`, { headers: headers })
-      .pipe(map((response: any) => response));
-  }
 }

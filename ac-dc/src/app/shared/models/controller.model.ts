@@ -1,9 +1,9 @@
-import { Window } from './window.model';
+import { Windows } from './windows.model';
 export class Controller {
   constructor(
     public id?: number,
     public name: string = null,
     public ip: string = null,
-    public window?: Window
+    public windows: Windows[] = new Array<Windows>()
   ) {}
 }

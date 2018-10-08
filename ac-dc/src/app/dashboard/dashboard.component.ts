@@ -1,9 +1,10 @@
-import { WindowService } from './../shared/services/window.service';
-import { Window } from './../shared/models/window.model';
+import { Windows } from './../shared/models/windows.model';
+import { WindowsService } from '../shared/services/windows.service';
 import { DbService } from './../shared/services/db.service';
 import { Component, OnInit } from '@angular/core';
 import { Controller } from '../shared/models/controller.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,22 +12,34 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public addWindow: boolean = false;
+  public addWindowsBoolean: Boolean = false;
+  public newWindowsCheck: Boolean = false;
 
-  public changeWindowStatus: boolean = null;
+  public addControllerBoolean: Boolean = false;
+  public addFormBoolean: Boolean = false;
+
+  public changeWindowStatus: Boolean = null;
 
   public controllers: Controller[];
 
-  public newWindow: Window;
+  public newWindows: Windows;
+  public newController: Controller;
 
-  public newWindowCheck: boolean = false;
-
-  newFormWindow = new FormGroup({
+  newControllerForm = new FormGroup({
     name: new FormControl(''),
-    status: new FormControl(this.newWindowCheck)
+    ip: new FormControl('')
   });
 
-  constructor(private dbService: DbService, private windowService: WindowService) {}
+  newFormWindows = new FormGroup({
+    name: new FormControl(''),
+    status: new FormControl(this.newWindowsCheck)
+  });
+
+  constructor(
+    private dbService: DbService,
+    private windowsService: WindowsService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getControllers();
@@ -36,43 +49,61 @@ export class DashboardComponent implements OnInit {
     this.dbService.getAllControllers().subscribe((response: Controller[]) => {
       console.log(response);
       this.controllers = response;
+      if (this.controllers.length < 5) {
+        this.addControllerBoolean = true;
+      }
     });
   }
 
   public updateController(controller: Controller): void {
-    this.dbService.updateController(controller).subscribe((data: any) => data);
+    this.dbService.updateController(controller).subscribe((response: any) => response);
   }
 
-  public changeStatus(window: Window, controller: Controller) {
-    this.changeWindowStatus = window.status;
+  public changeStatus(windows: Windows, controller: Controller) {
+    this.changeWindowStatus = windows.status;
 
     if (this.changeWindowStatus === false) {
-      this.openWindow();
-      window.status = true;
+      //this.openWindow();
+      windows.status = true;
     } else {
-      this.closeWindow();
-      window.status = false;
+      //this.closeWindow();
+      windows.status = false;
     }
-    //this.updateController(controller);
+    this.updateController(controller);
   }
 
-  public openWindow(): void {
-    this.windowService.openWindow().subscribe((response: any) => response);
+  public addNewWindows(controller: Controller): void {
+    this.newWindows = new Windows(controller.windows.length + 1, this.newFormWindows.get('name').value , this.newWindowsCheck);
+
+    controller.windows.push(this.newWindows);
+    this.updateController(controller);
+
+  }
+
+  public openWindows(): void {
+    this.windowsService.openWindows().subscribe((response: any) => response);
   }
   public closeWindow(): void {
-    this.windowService.closeWindow().subscribe((response: any) => response);
+    this.windowsService.closeWindows().subscribe((response: any) => response);
   }
 
-  public addWindowController(): void {
-    this.addWindow = !this.addWindow;
+  public addWindowsController(): void {
+    this.addWindowsBoolean = !this.addWindowsBoolean;
+  }
+  public addController(): void {
+    this.addFormBoolean = !this.addFormBoolean;
   }
 
-  public windowAdded(): void {
-
-    this.newWindow = new Window(null,
-      this.newFormWindow.get('name').value,
-      this.newWindowCheck);
-
-    console.log('added this window', this.newWindow);
+  public addNewController(): void {
+    this.newController = new Controller(
+      null,
+      this.newControllerForm.get('name').value,
+      this.newControllerForm.get('ip').value
+    );
+    this.dbService.newController(this.newController).subscribe((data: any) => {
+      location.reload();
+    });
   }
+
+
 }
