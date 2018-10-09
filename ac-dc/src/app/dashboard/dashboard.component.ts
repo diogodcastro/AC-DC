@@ -4,7 +4,6 @@ import { DbService } from './../shared/services/db.service';
 import { Component, OnInit } from '@angular/core';
 import { Controller } from '../shared/models/controller.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +13,9 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   public addWindowsBoolean: Boolean = false;
   public newWindowsCheck: Boolean = false;
+
+  public editControllerBoolean: Boolean = false;
+  public saveDeleteBoolean: Boolean = false;
 
   public addControllerBoolean: Boolean = false;
   public addFormBoolean: Boolean = false;
@@ -35,19 +37,17 @@ export class DashboardComponent implements OnInit {
     status: new FormControl(this.newWindowsCheck)
   });
 
-  constructor(
-    private dbService: DbService,
-    private windowsService: WindowsService,
-    private router: Router
-  ) {}
+  constructor(private dbService: DbService, private windowsService: WindowsService) {}
 
   ngOnInit() {
     this.getControllers();
+
+    this.newControllerForm.controls['name'].disable();
+    this.newControllerForm.controls['ip'].disable();
   }
 
   public getControllers(): void {
     this.dbService.getAllControllers().subscribe((response: Controller[]) => {
-      console.log(response);
       this.controllers = response;
       if (this.controllers.length < 5) {
         this.addControllerBoolean = true;
@@ -73,11 +73,14 @@ export class DashboardComponent implements OnInit {
   }
 
   public addNewWindows(controller: Controller): void {
-    this.newWindows = new Windows(controller.windows.length + 1, this.newFormWindows.get('name').value , this.newWindowsCheck);
+    this.newWindows = new Windows(
+      controller.windows.length + 1,
+      this.newFormWindows.get('name').value,
+      this.newWindowsCheck
+    );
 
     controller.windows.push(this.newWindows);
     this.updateController(controller);
-
   }
 
   public openWindows(): void {
@@ -90,8 +93,13 @@ export class DashboardComponent implements OnInit {
   public addWindowsController(): void {
     this.addWindowsBoolean = !this.addWindowsBoolean;
   }
+
   public addController(): void {
     this.addFormBoolean = !this.addFormBoolean;
+    if (this.editControllerBoolean === false) {
+      this.editController(this.editControllerBoolean);
+    }
+
   }
 
   public addNewController(): void {
@@ -105,5 +113,34 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public editController(status: Boolean): void {
+    if (status === true) {
+      this.newControllerForm.controls['name'].disable();
+      this.newControllerForm.controls['ip'].disable();
+      this.editControllerBoolean = false;
+      this.saveDeleteBoolean = false;
+    } else {
+      this.newControllerForm.controls['name'].enable();
+      this.newControllerForm.controls['ip'].enable();
+      this.editControllerBoolean = true;
+      this.saveDeleteBoolean = true;
+    }
+  }
 
+  public deleteController(controller: Controller): void {
+    this.dbService.deleteController(controller).subscribe((data: any) => {
+      location.reload();
+    });
+  }
+
+  public updateControllerInfo(controller: Controller): void {
+    console.log('controller', controller);
+
+    controller.ip = this.newControllerForm.get('ip').value;
+    console.log('controller', controller);
+
+
+
+    //this.updateController(controller);
+  }
 }
