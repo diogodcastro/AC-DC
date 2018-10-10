@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
   public newController: Controller;
 
   newControllerForm = new FormGroup({
-    name: new FormControl(''),
-    ip: new FormControl('')
+    name: new FormControl(),
+    ip: new FormControl()
   });
 
   newFormWindows = new FormGroup({
@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getControllers();
-
     this.newControllerForm.controls['name'].disable();
     this.newControllerForm.controls['ip'].disable();
   }
@@ -81,6 +80,7 @@ export class DashboardComponent implements OnInit {
 
     controller.windows.push(this.newWindows);
     this.updateController(controller);
+    location.reload();
   }
 
   public openWindows(): void {
@@ -99,7 +99,6 @@ export class DashboardComponent implements OnInit {
     if (this.editControllerBoolean === false) {
       this.editController(this.editControllerBoolean);
     }
-
   }
 
   public addNewController(): void {
@@ -108,9 +107,15 @@ export class DashboardComponent implements OnInit {
       this.newControllerForm.get('name').value,
       this.newControllerForm.get('ip').value
     );
-    this.dbService.newController(this.newController).subscribe((data: any) => {
-      location.reload();
-    });
+
+    if (
+      this.newControllerForm.get('name').value != null &&
+      this.newControllerForm.get('ip').value != null
+    ) {
+      this.dbService.newController(this.newController).subscribe((data: any) => {
+        location.reload();
+      });
+    }
   }
 
   public editController(status: Boolean): void {
@@ -127,20 +132,36 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  public updateControllerInfo(controller: Controller): void {
+    if (this.newControllerForm.get('name').value != null) {
+      controller.name = this.newControllerForm.get('name').value;
+    }
+    if (this.newControllerForm.get('ip').value != null) {
+      controller.ip = this.newControllerForm.get('ip').value;
+    }
+    this.updateController(controller);
+    location.reload();
+  }
+
+  public updateWindows(controller: Controller): void {
+    this.updateController(controller);
+    location.reload();
+ }
+
   public deleteController(controller: Controller): void {
     this.dbService.deleteController(controller).subscribe((data: any) => {
       location.reload();
     });
   }
 
-  public updateControllerInfo(controller: Controller): void {
-    console.log('controller', controller);
+  public deleteWindows(windows: Windows, controller: Controller): void {
+    let i = 1;
+    controller.windows.splice(controller.windows.indexOf(windows), 1);
 
-    controller.ip = this.newControllerForm.get('ip').value;
-    console.log('controller', controller);
-
-
-
-    //this.updateController(controller);
+    controller.windows.forEach(item => {
+      item.id = i;
+      i++;
+    });
+    this.updateController(controller);
   }
 }

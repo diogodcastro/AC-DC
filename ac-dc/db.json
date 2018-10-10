@@ -4,22 +4,12 @@
       "windows": [
         {
           "id": 1,
-          "name": "window 1",
-          "status": false
+          "name": "Windows 1",
+          "status": true
         },
         {
           "id": 2,
-          "name": "window 2",
-          "status": false
-        },
-        {
-          "id": 3,
-          "name": "window 3",
-          "status": false
-        },
-        {
-          "id": 4,
-          "name": "window 4",
+          "name": "windows 2",
           "status": false
         }
       ],
@@ -65,7 +55,13 @@
       "id": 4,
       "name": "Controller 4",
       "ip": "100.100.0.4",
-      "windows": []
+      "windows": [
+        {
+          "id": 1,
+          "name": "Window 1",
+          "status": false
+        }
+      ]
     }
   ]
 }
